@@ -48,7 +48,7 @@ stage('Push Image') {
     stage('Deploy to EKS'){
       steps{
           script {
-            withKubeConfig([credentialsId: 'eks']) {
+            kubeconfig(credentialsId: 'eks', serverUrl: 'https://82CE6F56D2B2B223DEE2BF0D799407FF.gr7.ap-south-1.eks.amazonaws.com') {
               sh 'cat k8s.yaml | sed "s/nodejs-cicd:tag/nodejs-cicd:${IMAGE_TAG}/g" | kubectl apply -f -' 
 }          
       }
