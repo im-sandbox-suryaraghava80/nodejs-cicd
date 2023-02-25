@@ -49,7 +49,8 @@ stage('Push Image') {
       steps{
           script {
             kubeconfig(credentialsId: 'eks', serverUrl: 'https://82CE6F56D2B2B223DEE2BF0D799407FF.gr7.ap-south-1.eks.amazonaws.com') {
-             sh 'sed s%tag%$IMAGE_TAG% k8s.yaml | kubectl apply -f - --record'             
+             sh("sed -i.bak 's#tag#${IMAGE_TAG}#' k8s.yaml")
+             sh 'kubectl apply -f k8s.yaml'
 }          
       }
     }
